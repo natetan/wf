@@ -5,5 +5,6 @@ public enum Polarity {
     Madurai,
     Naramon,
     Vazarin,
-    Zenurik
+    Zenurik,
+	None
 }
