@@ -8,14 +8,15 @@ public class ModSlots {
 
     public static final int MAX_FORMA = 9;
 	public static final int MAX_ROWS = 2;
-	public static final int MAX_COLS = 4l
+	public static final int MAX_COLS = 4;
 	
 	// Assumes weapon comes with no polarities
+    // Places polarity of 'none' in all slots
     public ModSlots() {
         this.slots = new Polarity[2][4];
 		for (int row = 0; row < MAX_ROWS; row++) {
 			for (int col = 0; col < MAX_COLS; col++) {
-				this.slots[row][col] = Polarity.NONE;
+				this.slots[row][col] = Polarity.None;
 			}
 		}
         this.count = 0;
@@ -33,7 +34,7 @@ public class ModSlots {
 
 	public void move(int oldRow, int oldCol, int newRow, int newCol) {
 		this.checkSlot(oldRow, oldCol);
-		this.checkSlot(newRow, new Col);
+		this.checkSlot(newRow, newCol);
 		Polarity old = this.get(oldRow, oldCol);
 		Polarity temp = this.get(newRow, newCol);
 		this.slots[newRow][newCol] = old;
