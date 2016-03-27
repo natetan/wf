@@ -1,7 +1,13 @@
 /**
- * Created by Yulong on 3/24/2016.
+ * Yulong Tan
+ * 3.26.16
+ *
+ * Implementation of using Forma from Warframe. This is modding a weapon
+ * or frame with different 'polarities' that are specific to the game.
+ * Users can add more polarities with 'forma' and can move things around.
  */
-public class ModSlots {
+
+public class ModSlots implements Comparable<ModSlots> {
     private Polarity[][] slots;
     private int count; // forma currently installed
     private int stars; // total amount of times with forma
@@ -63,4 +69,12 @@ public class ModSlots {
 			throw new IllegalArgumentException();
 		}
 	}
+
+    public int compareTo(ModSlots other) {
+        if (this.count == other.count) {
+            return this.stars - other.stars;
+        } else {
+            return this.count - other.count;
+        }
+    }
 }
