@@ -28,7 +28,8 @@ public class ModSlots implements Comparable<ModSlots> {
         this.count = 0;
         this.stars = 0;
     }
-
+	
+	// Adds a forma to the weapon, and sets a given slot to the given polarity
     public void polarize(int row, int column, Polarity p) {
         this.checkSlot(row, column);
         this.slots[row][column] = p;
@@ -37,7 +38,8 @@ public class ModSlots implements Comparable<ModSlots> {
         }
         this.stars++;
     }
-
+	
+	// Polarity slots can be moved around for better elemental modding
 	public void move(int oldRow, int oldCol, int newRow, int newCol) {
 		this.checkSlot(oldRow, oldCol);
 		this.checkSlot(newRow, newCol);
@@ -46,30 +48,39 @@ public class ModSlots implements Comparable<ModSlots> {
 		this.slots[newRow][newCol] = old;
 		this.slots[oldRow][oldCol] = temp;
 	}
-
+	
+	// Grabs the polarity at a given slot
 	public Polarity get(int row, int col) {
 		this.checkSlot(row, col);
 		return this.slots[row][col];
 	}
-
+	
+	// Returns the count of how many polarities are on
     public int formaCount() {
         return this.count;
     }
-
+	
+	// Returns the number of times an item has been formaed
     public int formaUsed() {
         return this.stars;
     }
-
+	
+	// Checks if the given slot is legal
     private boolean isLegalSlot(int row, int column) {
         return row > 0 && row < MAX_ROWS && column > 0 && column < MAX_COLS;
     }
-
+	
+	// Factors out the legality check of the slots. Throws an IllegalArgumentException
+	// if the slot is illegal.
 	private void checkSlot(int row, int col) {
 		if (!this.isLegalSlot(row, col)) {
 			throw new IllegalArgumentException();
 		}
 	}
-
+	
+	// Compares other ModSlots to this one. The ones with less polarities
+	// come before the ones with more. If they're the same, they're compared with total
+	// forma. 
     public int compareTo(ModSlots other) {
         if (this.count == other.count) {
             return this.stars - other.stars;
