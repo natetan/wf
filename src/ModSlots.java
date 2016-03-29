@@ -11,14 +11,18 @@ public class ModSlots implements Comparable<ModSlots> {
     private Polarity[][] slots;
     private int count; // forma currently installed
     private int stars; // total amount of times with forma
+	private int capacity; // number of mod points remaining
+	private boolean hasPotato; // checks if item is supercharged
 
     public static final int MAX_FORMA = 9;
 	public static final int MAX_ROWS = 2;
 	public static final int MAX_COLS = 4;
+	public static final int DEFAULT_CAPACITY = 30;
+	public static final int SUPER_CHARGED_CAPACITY = 60;
 	
 	// Assumes weapon comes with no polarities
     // Places polarity of 'none' in all slots
-    public ModSlots() {
+    public ModSlots(boolean potato) {
         this.slots = new Polarity[2][4];
 		for (int row = 0; row < MAX_ROWS; row++) {
 			for (int col = 0; col < MAX_COLS; col++) {
@@ -27,6 +31,8 @@ public class ModSlots implements Comparable<ModSlots> {
 		}
         this.count = 0;
         this.stars = 0;
+		this.hasPotato = potato;
+		this.capacity = this.setUpCapacity();
     }
 	
 	// Adds a forma to the weapon, and sets a given slot to the given polarity
@@ -88,4 +94,16 @@ public class ModSlots implements Comparable<ModSlots> {
             return this.count - other.count;
         }
     }
+
+	public boolean hasPotato() {
+		return this.hasPotato;
+	}
+
+	private int setUpCapacity() {
+		if (this.hasPotato()) {
+			return SUPER_CHARGED_CAPACITY;
+		} else {
+			return DEFAULT_CAPACITY;
+		}
+	}
 }
